@@ -12,13 +12,16 @@ const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:3000';
 const LOCAL_CONTROLS = [
   { label: 'Unlimited', value: null },
   { label: '5 minutes', value: 5 * 60 * 1000 },
-  { label: '10 minutes', value: 10 * 60 * 1000 }
+  { label: '10 minutes', value: 10 * 60 * 1000 },
+  { label: '15 minutes', value: 15 * 60 * 1000 },
+  { label: '60 minutes', value: 60 * 60 * 1000 }
 ];
 
 const ONLINE_CONTROLS = [
   { label: '5 minutes', value: 5 * 60 * 1000 },
   { label: '10 minutes', value: 10 * 60 * 1000 },
-  { label: '15 minutes', value: 15 * 60 * 1000 }
+  { label: '15 minutes', value: 15 * 60 * 1000 },
+  { label: '60 minutes', value: 60 * 60 * 1000 }
 ];
 
 const PIECES: Record<Color, Record<string, string>> = {
