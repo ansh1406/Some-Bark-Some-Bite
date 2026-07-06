@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "build": "tsc -p tsconfig.json",
-    "start": "npm run build --workspace @sbsb/engine && npm run build && node dist/index.js",
-    "smoke": "npm run build --workspace @sbsb/engine && npm run build && node scripts/smoke.mjs",
+    "build": "npm run build --workspace @sbsb/engine && tsc -p tsconfig.json",
+    "start": "npm run build && node dist/index.js",
+    "smoke": "npm run build && node scripts/smoke.mjs",
     "test": "npm run smoke"
   },
   "dependencies": {
