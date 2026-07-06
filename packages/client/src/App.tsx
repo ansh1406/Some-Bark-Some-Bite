@@ -129,7 +129,7 @@ function GameBoard({
         {rows.map(y =>
           cols.map(x => {
             const square = [x, y] as Coord;
-            const piece = getSquarePiece (board, square);
+            const piece = getSquarePiece(board, square);
             const squareKey = coordKey(square);
             const target = selectedMoveKeys.has(squareKey);
             const selectedSquare = selected ? coordKey(selected) === squareKey : false;
@@ -283,7 +283,7 @@ export default function App(): JSX.Element {
   function connectSocket(): Socket {
     if (socketRef.current) return socketRef.current;
 
-    const socket = io(BACKEND_URL, {autoConnect: true, transports: ['websocket'] });
+    const socket = io(BACKEND_URL, { autoConnect: true, transports: ['websocket'] });
     socketRef.current = socket;
     setSocketStatus('connecting');
 
@@ -433,6 +433,19 @@ export default function App(): JSX.Element {
     setScreen('home');
   }
 
+  function showHelp(): void {
+    const popup = document.getElementById('messagePopup');
+    if (popup) {
+      popup.style.display = 'block';
+    }
+  }
+  function closeHelpPopup(): void {
+    const popup = document.getElementById('messagePopup');
+    if (popup) {
+      popup.style.display = 'none';
+    }
+  }
+
   const activeColor = screen === 'local' ? localGame?.activeColor ?? 'White' : onlineGame?.activeColor ?? 'White';
   const currentBoard = screen === 'local' ? localGame?.board ?? null : onlineGame?.board ?? null;
   const currentMoveMap = screen === 'local' ? localMoveMap : onlineMoveMap;
@@ -448,11 +461,52 @@ export default function App(): JSX.Element {
 
   return (
     <div className="app-shell">
+      <div id="messagePopup" className="floating-popup">
+        <button id="closePopupBtn" className="close-btn" onClick={closeHelpPopup}>&times;</button>
+        <h2>How to Play "Some Bark, Some Bite"</h2>
+
+<p>Welcome to a chess variant where spatial control meets the offside trap. All standard rules of chess apply (how pieces move, check/checkmate, castling, en passant), but with a massive twist to the board and how capturing works. </p>
+
+<h3>1. The Expanded Board</h3>
+
+<p> <b>The Grid:</b> The board is standard width (8 squares) but heavily stretched vertically (12 squares).<br></br><br></br>
+ <b>Starting Positions:</b> White's army starts on Ranks 3 and 4. Black's army starts on Ranks 9 and 10.<br></br><br></br>
+ <b>The Safe Zones:</b> This setup leaves 4 empty rows in the middle of the board for battle, and 2 empty rows *behind* each player's starting army.</p>
+
+<h3>2. The "Offside" Rule</h3>
+
+<p>The board is divided perfectly in half (Ranks 1–6 belong to White; Ranks 7–12 belong to Black). You can never be offside in your own half.</p>
+
+<p>If you push a piece into enemy territory, it becomes <b>Offside</b> if:<br></br>
+
+ There are no enemy pieces on its current row.<br></br> 
+ AND there are no enemy pieces <u>behind</u> it (deeper into the opponent's territory).<br></br>
+ Note: The enemy King counts as a defender! If the enemy King is on his back row, your attacking pieces are kept safely onside.</p>
+
+<h3>3. All Bark, No Bite (Offside Restrictions)</h3>
+
+<p>When a piece is offside, it becomes a "ghost" regarding captures, but a physical wall regarding threats.</p>
+
+<p><b>The Bark:</b> Offside pieces move normally. They still control the squares they look at. They can put the King in check, deliver checkmate, and pin enemy pieces.</p>
+<p><b>The No-Bite:</b> An offside piece <b>cannot capture</b> any enemy piece. You can look at them, but you cannot touch them.</p>
+
+<h3>4. The Provocation Rule (When offside pieces CAN bite)</h3>
+
+<p>You cannot use an offside piece to hunt down stationary enemies. However, if your opponent makes a mistake, your offside piece will bite back.</p>
+
+<p> If your opponent deliberately moves one of their pieces onto a square controlled by your offside piece, you are allowed to capture that specific piece on your <b>immediate next turn</b>.</p>
+<p> If you choose not to capture it right away, the window closes, and your piece goes back to being strictly offside.</p>
+
+<h3>5. Pawn Promotion & The Grace Period</h3>
+
+<p><b>The Journey:</b> Pawns promote just like normal, but they must march all the way to the absolute furthest edge of the 12-rank board. You are fully allowed to march an offside pawn forward to promote.</p>
+<p><b>The Grace Period:</b> Because promoting takes so much effort, a newly promoted piece (like a Queen) is granted a "Grace Period." For one full turn cycle, the new piece is completely immune to the offside rules. It can capture freely anywhere on the board before the offside trap finally catches up to it. </p>
+      </div>
       <header className="topbar">
         <div>
           <h1>Some Bark , Some Bite</h1>
         </div>
-        <div className="status-pill">{screen === 'home' ? 'Lobby' : `${screen.toUpperCase()} · ${statusLabel(currentStatus)}`}</div>
+        <div className="status-pill"> <span className='help' onClick={showHelp}>!</span></div>
       </header>
 
       {screen === 'home' ? (

@@ -59,6 +59,47 @@ select {
   overflow: hidden;
 }
 
+/* The main popup container */
+.floating-popup {
+  display: none;
+  height: 80dvh;
+  min-height: 80dvh;
+  overflow-y: scroll;
+  position: fixed; /* Detaches it from other elements */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* Centers it perfectly on the screen */
+  z-index: 9999; /* Ensures it sits on top of everything else */
+
+  /* Visual Styling */
+  background-color: #ffffff;
+  color: #000000;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  width: 300px;
+  text-align: center;
+  font-family: sans-serif;
+}
+
+/* The Close Button at the top right */
+.close-btn {
+  position: absolute; /* Positions it relative to the popup box */
+  top: 10px;
+  right: 15px;
+  background: transparent;
+  border: none;
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+  color: #555;
+  padding: 0;
+}
+
+.close-btn:hover {
+  color: #ff0000; /* Turns red when hovered over */
+}
+
 .topbar {
   display: flex;
   justify-content: space-between;
@@ -78,7 +119,7 @@ select {
 }
 
 .status-pill {
-  padding: 0.5rem 0.9rem;
+  padding: 0rem 0.5rem;
   border-radius: 999px;
   background: rgba(15, 23, 42, 0.75);
   border: 1px solid #334155;
@@ -312,8 +353,11 @@ select {
   .app-shell {
     height: auto;
   }
-  .topbar {
+  /* .topbar {
     display:none;
+  } */
+  .topbar h1 {
+    font-size: 1rem;
   }
   h2 {
     font-size: 1rem;
