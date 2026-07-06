@@ -3,7 +3,9 @@
   "private": true,
   "version": "0.1.0",
   "workspaces": [
-    "packages/*"
+    "packages/engine",
+    "packages/server",
+    "packages/client"
   ],
   "scripts": {
     "bootstrap": "npm install",
