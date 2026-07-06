@@ -3,6 +3,8 @@
   "compilerOptions": {
     "composite": true,
     "rootDir": "src",
+    "declaration": true,
+    "declarationMap": true,
     "outDir": "dist",
     "module": "CommonJS"
   },
