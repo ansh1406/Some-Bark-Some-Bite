@@ -1,0 +1,19 @@
+{
+  "name": "@sbsb/server",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "start": "npm run build --workspace @sbsb/engine && npm run build && node dist/index.js",
+    "smoke": "npm run build --workspace @sbsb/engine && npm run build && node scripts/smoke.mjs",
+    "test": "npm run smoke"
+  },
+  "dependencies": {
+    "socket.io": "^4.7.0",
+    "@sbsb/engine": "file:../engine"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "typescript": "^5.0.0"
+  }
+}
